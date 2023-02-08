@@ -1,28 +1,30 @@
-import React from 'react';
+import React , {useEffect,useState} from 'react';
+import { ImageComponent } from './components/ImageComponent';
 import './assets/App.css';
 
 function App() {
+  
+  const [images , setImages] = useState([]);
+  const [isLoading, setIsLoading]= useState(true);
+  const [term , setTerm] = useState('');
+
+  // useEffect(()=> {
+  //   fetch('https://pixabay.com/api/?key=33480071-bb8e31e1e6f077551f97f13bf&q=${term}&image_type=photo&pretty=true')
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     setImages(data.hits);
+  //     setIsLoading(false);
+  //   })
+  //   .catch(err => console.log(err))
+  // },[]);
+
   return (
-    <div className="rounded max-w-sm overflow-hidden shadow-lg ">
-      <img src="https:/source.unsplash.com/random" className='w-full' />
-      <div className='px-6 py-4'>
-        <div className=' font-bold text-xl text-purple-500
-      '>Photo by John Doe
-        </div>
-        <ul className=''>
-          <li><strong>Views:</strong> 4000</li>
-          <li><strong>Downloads:</strong> 4000</li>
-          <li><strong>Votes:</strong> 4000</li>
-        </ul>
-        <div className='px-6 py-4 '>
-          <span className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2'>#tag1</span>
-          <span className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 '>#tag2</span>
-          <span className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2'>#tag3</span>
-        </div>
-
-
+    <div className='container mx-auto'>
+      <div className='grid grid-cols-3 gap-4'>
+      {images.map(image => {
+        <ImageComponent key={image.id} image={image}/>
+      })}
       </div>
-
     </div>
   );
 }
